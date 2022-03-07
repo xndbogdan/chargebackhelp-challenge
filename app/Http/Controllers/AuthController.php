@@ -5,13 +5,19 @@ namespace App\Http\Controllers;
 use App\Http\Requests\CreateUserRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
     public function user() {
-        return response()->json(auth()->user());
+        return response()->json(User::with('profiles')->find(Auth::id()));
     }
 
+    /**
+     * @param Request $request
+     * 
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function logout(Request $request) {
         $user = auth('api')->user();
 
@@ -28,6 +34,11 @@ class AuthController extends Controller
         ]);
     }
 
+    /**
+     * @param CreateUserRequest $request
+     * 
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function register(CreateUserRequest $request) {
         User::create([
             'name' => $request->name,

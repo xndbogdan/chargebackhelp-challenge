@@ -13,10 +13,8 @@
 							<!-- TODO: Remove v-if false after we figure out authentication -->
 							<div class="flex space-x-4" v-if="isLoggedIn">
 								<!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
-								<a href="#" class="bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-medium">Home</a>
-								<a href="#" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Team</a>
-								<a href="#" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Projects</a>
-								<a href="#" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Calendar</a>
+								<router-link to="/" class="bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-medium">Home</router-link>
+								<a href="#" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Books</a>
 							</div>
 						</div>
 					</div>
@@ -52,7 +50,7 @@
 								-->
 								<div v-show="menuOpen" class="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none z-10" role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button" tabindex="-1">
 									<!-- Active: "bg-gray-100", Not Active: "" -->
-									<a href="#" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-0">Change Profile</a>
+									<router-link to="profiles" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-0">Change Profile</router-link>
 									<a href="#" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-1">Settings</a>
 									<a href="#" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-2" @click="handleLogout">Sign out</a>
 								</div>
@@ -101,10 +99,8 @@
 				<!-- TODO: Remove v-if false after we figure out authentication -->
 				<div class="px-2 pt-2 pb-3 space-y-1" v-if="isLoggedIn">
 					<!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
-					<a href="#" class="bg-gray-900 text-white block px-3 py-2 rounded-md text-base font-medium">Home</a>
+					<router-link to="/" class="bg-gray-900 text-white block px-3 py-2 rounded-md text-base font-medium">Home</router-link>
 					<a href="#" class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Books</a>
-					<a href="#" class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Projects</a>
-					<a href="#" class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Calendar</a>
 				</div>
 				<!-- TODO: Remove v-if false after we figure out authentication -->
 				<div v-if="isLoggedIn" class="pt-4 pb-3 border-t border-gray-700">
@@ -125,7 +121,7 @@
 						</button>
 					</div>
 					<div class="mt-3 px-2 space-y-1">
-						<a href="#" class="block px-3 py-2 rounded-md text-base font-medium text-gray-400 hover:text-white hover:bg-gray-700">Change Profile</a>
+						<router-link to="profiles" class="block px-3 py-2 rounded-md text-base font-medium text-gray-400 hover:text-white hover:bg-gray-700">Change Profile</router-link>
 						<a href="#" class="block px-3 py-2 rounded-md text-base font-medium text-gray-400 hover:text-white hover:bg-gray-700">Settings</a>
 						<a @click="handleLogout" class="block px-3 py-2 rounded-md text-base font-medium text-gray-400 hover:text-white hover:bg-gray-700">Sign out</a>
 					</div>
@@ -145,7 +141,7 @@
 </template>
 
 <script>
-import { mapGetters,mapActions} from 'vuex';
+import { mapGetters, mapActions} from 'vuex';
 export default {
 	name: 'app',
 	data() {

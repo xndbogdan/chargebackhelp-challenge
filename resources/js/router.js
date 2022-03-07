@@ -17,6 +17,22 @@ const routes = [
             title: 'Register'
         },
     },
+    {
+        path: '/profiles',
+        component: () => import('./views/Profiles'),
+        name: 'profiles',
+        meta: {
+            title: 'Profiles'
+        },
+    },
+    {
+        path: '/profile/:id/books',
+        component: () => import('./views/Profile/Books'),
+        name: 'profile-books',
+        meta: {
+            title: 'Profile Books'
+        },
+    },
 ];
 
 const router = createRouter({

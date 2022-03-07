@@ -2,7 +2,6 @@
 
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\AuthController;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-// Wanted to use AuthController here but it's reserved so I made a new Controller
+// Wanted to use AuthController here but it's reserved so I'm just using the basic RegisterController.
 Route::post('/register', [RegisterController::class, 'register']);
 Route::group([
     'middleware' => 'auth.basic.once'
