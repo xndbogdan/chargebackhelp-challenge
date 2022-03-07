@@ -23,9 +23,19 @@ This repo was made to showcase the chargeback help challenge
 - Input Validations
 - Code Style PSR-5
 
+## Personal goals
+
+- Stick as close as possible to PSR-12
+- Use guard clauses whenever possible
+- Design a clean, sleek interface
+- Write clean code that is easy to understand & extend
+
 ## Running the project
 
 - Install the npm and composer dependencies
 - Run the migrations, run the seeders
 - Configure your env
 - Run `npm run prod`
+
+## Notes
+- I didn't add permissions as I didn't see what functionality could benefit from them for this example

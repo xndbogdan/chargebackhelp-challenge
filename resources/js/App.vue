@@ -13,8 +13,8 @@
 							<!-- TODO: Remove v-if false after we figure out authentication -->
 							<div class="flex space-x-4" v-if="isLoggedIn">
 								<!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
-								<router-link to="/" class="bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-medium">Home</router-link>
-								<a href="#" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Books</a>
+								<router-link to="/" :class="currentRouteName == 'welcome' ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700'" class="px-3 py-2 rounded-md text-sm font-medium">Home</router-link>
+								<router-link :to="{name: 'books.index'}" :class="currentRouteName == 'books.index' ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700'" class="hover:text-white px-3 py-2 rounded-md text-sm font-medium">Books</router-link>
 							</div>
 						</div>
 					</div>
@@ -34,7 +34,7 @@
 								<div>
 									<button type="button" @click="toggleMenu" class="bg-gray-800 flex text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white" id="user-menu-button" aria-expanded="false" aria-haspopup="true">
 										<span class="sr-only">Open user menu</span>
-										<img class="h-8 w-8 rounded-full" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="">
+										<img class="h-8 w-8 rounded-full" src="https://picsum.photos/200?hash=profile" alt="">
 									</button>
 								</div>
 
@@ -50,7 +50,7 @@
 								-->
 								<div v-show="menuOpen" class="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none z-10" role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button" tabindex="-1">
 									<!-- Active: "bg-gray-100", Not Active: "" -->
-									<router-link to="profiles" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-0">Change Profile</router-link>
+									<router-link :to="{name: 'profiles.index'}" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-0">Change Profile</router-link>
 									<a href="#" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-1">Settings</a>
 									<a href="#" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-2" @click="handleLogout">Sign out</a>
 								</div>
@@ -99,14 +99,14 @@
 				<!-- TODO: Remove v-if false after we figure out authentication -->
 				<div class="px-2 pt-2 pb-3 space-y-1" v-if="isLoggedIn">
 					<!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
-					<router-link to="/" class="bg-gray-900 text-white block px-3 py-2 rounded-md text-base font-medium">Home</router-link>
-					<a href="#" class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Books</a>
+					<router-link to="/" :class="currentRouteName == 'welcome' ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700'" class="block px-3 py-2 rounded-md text-base font-medium">Home</router-link>
+					<router-link to="books" :class="currentRouteName == 'books.index' ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700'" class="hover:text-white block px-3 py-2 rounded-md text-base font-medium">Books</router-link>
 				</div>
 				<!-- TODO: Remove v-if false after we figure out authentication -->
 				<div v-if="isLoggedIn" class="pt-4 pb-3 border-t border-gray-700">
 					<div class="flex items-center px-5">
 						<div class="flex-shrink-0">
-							<img class="h-10 w-10 rounded-full" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="">
+							<img class="h-10 w-10 rounded-full" src="https://picsum.photos/200?hash=profile-mobile" alt="">
 						</div>
 						<div class="ml-3">
 							<div class="text-base font-medium text-white">{{ getUser.name }}</div>
@@ -121,7 +121,7 @@
 						</button>
 					</div>
 					<div class="mt-3 px-2 space-y-1">
-						<router-link to="profiles" class="block px-3 py-2 rounded-md text-base font-medium text-gray-400 hover:text-white hover:bg-gray-700">Change Profile</router-link>
+						<router-link :to="{ name: 'profiles.index'}" class="block px-3 py-2 rounded-md text-base font-medium text-gray-400 hover:text-white hover:bg-gray-700">Change Profile</router-link>
 						<a href="#" class="block px-3 py-2 rounded-md text-base font-medium text-gray-400 hover:text-white hover:bg-gray-700">Settings</a>
 						<a @click="handleLogout" class="block px-3 py-2 rounded-md text-base font-medium text-gray-400 hover:text-white hover:bg-gray-700">Sign out</a>
 					</div>
@@ -188,7 +188,10 @@ export default {
 		}
 	},
 	computed: {
-		...mapGetters(['getUser', 'isLoggedIn'])
+		...mapGetters(['getUser', 'isLoggedIn']),
+		currentRouteName() {
+			return this.$route.name;
+    }
 	}
 };
 </script>

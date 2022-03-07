@@ -19,19 +19,44 @@ const routes = [
     },
     {
         path: '/profiles',
-        component: () => import('./views/Profiles'),
-        name: 'profiles',
+        component: () => import('./views/Profiles/Index'),
+        name: 'profiles.index',
         meta: {
             title: 'Profiles'
         },
     },
     {
-        path: '/profile/:id/books',
-        component: () => import('./views/Profile/Books'),
-        name: 'profile-books',
+        path: '/profiles/create',
+        component: () => import('./views/Profiles/Create'),
+        name: 'profiles.create',
         meta: {
-            title: 'Profile Books'
+            title: 'Profiles'
         },
+    },
+    {
+        path: '/books',
+        component: () => import('./views/Books/Index'),
+        name: 'books.index',
+        meta: {
+            title: 'View Books'
+        },
+    },
+    {
+        path: '/books/create',
+        component: () => import('./views/Books/Create'),
+        name: 'books.create',
+        meta: {
+            title: 'Create Book'
+        },
+    },
+    {
+        path: '/books/:id',
+        component: () => import('./views/Books/Show'),
+        name: 'books.show',
+        meta: {
+            title: 'View Book'
+        },
+        props: true
     },
 ];
 
