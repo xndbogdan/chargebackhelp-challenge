@@ -26,6 +26,10 @@
         "vue-template-compiler": "^2.6.12"
     },
     "dependencies": {
-        "vue-router": "^4.0.13"
+        "vue-axios": "^3.4.1",
+        "vue-router": "^4.0.13",
+        "vue-toast-notification": "^3.0.0",
+        "vuex": "^4.0.2",
+        "vuex-persistedstate": "^4.1.0"
     }
 }
