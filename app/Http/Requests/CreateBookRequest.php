@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Http\Request;
 
 class CreateBookRequest extends FormRequest
 {
@@ -21,10 +22,10 @@ class CreateBookRequest extends FormRequest
      *
      * @return array
      */
-    public function rules()
+    public function rules(Request $request)
     {
         return [
-            'title' => 'required|min:3',
+            'title' => 'required|min:3|unique:books,title,NULL,id,author,' . $request->author,
             'author' => 'required|min:3',
             'release_date' => 'required|date',
         ];

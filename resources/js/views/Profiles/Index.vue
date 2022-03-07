@@ -1,5 +1,9 @@
 <template>
 	<main class="mt-16">
+    <div class="mb-16">
+      <img class="mx-auto h-12 w-auto" src="https://tailwindui.com/img/logos/workflow-mark-indigo-600.svg" alt="Workflow">
+      <h2 class="mt-6 text-center text-3xl font-extrabold text-gray-900">Select a profile</h2>
+    </div>
     <ul role="list" class="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
       <li @click="updateCurrentProfile(profile)" class="col-span-1 flex flex-col text-center bg-white cursor-pointer rounded-lg transition-all duration-150 shadow hover:shadow-xl divide-y divide-gray-200" :key="profile.id" v-for="profile in getUser.profiles">
         <div class="flex-1 flex flex-col p-8">

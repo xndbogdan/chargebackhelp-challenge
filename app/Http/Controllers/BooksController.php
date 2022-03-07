@@ -12,7 +12,7 @@ class BooksController extends Controller
 {
     /**
      * Display a listing of the resource.
-     *
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request)
@@ -66,10 +66,20 @@ class BooksController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  int  $id
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($id, Request $request)
     {
-        //
+        $book = Book::find($id);
+        if($book->user_id != Auth::id() || $book->user_profile_id != $request->profile_id) {
+            return response()->json([
+                'message' => 'You are not authorized to delete this book.'
+            ], 403);
+        }
+        Book::destroy($id);
+        return response()->json([
+            'message' => 'Book deleted.'
+        ], 200);
     }
 }

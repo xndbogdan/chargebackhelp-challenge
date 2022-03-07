@@ -63,17 +63,11 @@ export default {
     handleRegister() {
       this.axios.post('/api/register', this.userData)
         .then((response) => {
+          this.$toast.error('Successfully registered')
           this.$router.push('/')
-          this.$toast.open({
-            message: 'Successfully registered',
-            type: 'success'
-          })
         }).catch((error) => {
           if(!error.response || !error.response.data || !error.response.data.errors) {
-            this.$toast.open({
-              message: 'Something went wrong',
-              type: 'error'
-            })
+            this.$toast.error('Something went wrong')
           } else {
             this.errors = error.response.data.errors
           }

@@ -47,10 +47,13 @@ export default {
       this.axios.post('/api/profile', this.userData)
         .then(response => {
           this.refreshUser();
+          this.$toast.success('Profile created successfully');
           this.$router.push('/profiles');
+      
         })
         .catch(error => {
           this.errors = error.response.data.errors;
+          this.$toast.error('Profile creation failed');
         });
     },
     refreshUser() {

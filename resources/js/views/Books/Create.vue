@@ -64,6 +64,7 @@ export default {
     handleBookCreation() {
       this.axios.post('/api/books', this.bookData)
         .then(response => {
+          this.$toast.success('Book created successfully');
           this.$router.push({name: 'books.show', params: {id: response.data.id}});
         }).catch(error => {
           this.errors = error.response.data.errors;

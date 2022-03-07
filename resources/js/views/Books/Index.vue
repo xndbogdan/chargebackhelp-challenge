@@ -26,7 +26,7 @@
 
 		<!-- This example requires Tailwind CSS v2.0+ -->
 		<div>
-			<div class="flow-root mt-6">
+			<div class="flow-root mt-6" v-if="filteredBooks">
 				<ul role="list" class="-my-5 divide-y divide-gray-200">
 					<li class="py-4" :key="book.id" v-for="book in filteredBooks">
 						<div class="flex items-center space-x-4">
@@ -36,10 +36,11 @@
 							<div class="flex-1 min-w-0">
 								<p class="text-sm font-medium text-gray-900 truncate">{{ book.title }}</p>
 								<p class="text-sm text-gray-500 truncate">By {{ book.author }}</p>
-								<p class="text-sm text-gray-500">Released on {{ book.release_date }}</p>
+								<p class="text-sm text-gray-500">Released on {{ formatDate(book.release_date) }}</p>
 							</div>
 							<div>
 								<router-link :to="{ name: 'books.show', params: {id: book.id} }" class="inline-flex items-center shadow-sm px-2.5 py-0.5 border border-gray-300 text-sm leading-5 font-medium rounded-full text-gray-700 bg-white hover:bg-gray-50"> View </router-link>
+								<span v-if="book.deletable && book.user_profile_id == getProfile.id" @click="removeBook(book)" class="cursor-pointer ml-2 inline-flex items-center shadow-sm px-2.5 py-0.5 border border-red-300 text-sm leading-5 font-medium rounded-full text-red-700 bg-red-100 hover:bg-gray-50"> Delete </span>
 							</div>
 						</div>
 					</li>
@@ -60,7 +61,25 @@ export default {
 		}
 	},
 	methods: {
+		formatDate(dateString) {
+			const date = new Date(dateString);
+			return new Intl.DateTimeFormat('default', {dateStyle: 'long'}).format(date);
+    },
+		removeBook(book) {
+			this.axios.delete('/api/books/' + book.id, {
+				params: { profile_id: this.getProfile.id, }
+			}).then(response => {
+				this.getProfileBooks();
+				this.$toast.success('Book deleted');
+			}).catch(error => {
+				this.$toast.error('Error deleting book');
+			});
+		},
 		getProfileBooks() {
+			if(!this.getProfile) {
+				this.$router.push({ name: 'profiles.index' });
+				return
+			}
 			this.axios.get('/api/books', { params: {
 				profile_id: this.getProfile.id,
 			}})
@@ -83,6 +102,9 @@ export default {
   computed: {
     ...mapGetters(['getProfile']),
 		filteredBooks() {
+			if(!this.books) {
+				return
+			}
 			if (this.onlyYours) {
 				return this.books.filter(book => book.user_profile_id === this.getProfile.id);
 			}
@@ -93,7 +115,7 @@ export default {
 		this.getProfileBooks()
 	},
 	created() {
-
+		
 	},
 };
 </script>

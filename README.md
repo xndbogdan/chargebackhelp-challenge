@@ -38,4 +38,5 @@ This repo was made to showcase the chargeback help challenge
 - Run `npm run prod`
 
 ## Notes
-- I didn't add permissions as I didn't see what functionality could benefit from them for this example
+- I didn't add permissions as I didn't see what functionality could benefit from them in this challenge
+- It took a lot longer than expected

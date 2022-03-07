@@ -6,7 +6,7 @@
 				<div class="lg:max-w-lg lg:self-end" v-if="book">
 					<h1 class="text-3xl font-extrabold tracking-tight text-gray-900 sm:text-4xl">{{ book.title }}</h1>
 					<h5 class="text-base text-gray-600 font-bold">By {{ book.author }} </h5>
-					<p class="text-sm text-gray-500">Released on {{ book.release_date }}</p>
+					<p class="text-sm text-gray-500">Released on {{ formatDate(book.release_date) }}</p>
 					<section aria-labelledby="information-heading" class="mt-4">
 						<h2 id="information-heading" class="sr-only">Product information</h2>
 
@@ -118,6 +118,11 @@ export default {
 	methods: {
 		rickroll() {
 			window.open("https://www.youtube.com/watch?v=dQw4w9WgXcQ");
+		},
+		formatDate(dateString) {
+			const date = new Date(dateString);
+					// Then specify how you want your dates to be formatted
+			return new Intl.DateTimeFormat('default', {dateStyle: 'long'}).format(date);
 		},
 		getBook() {
 			this.axios.get('/api/books/' + this.id , { params: {
